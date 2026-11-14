@@ -1,0 +1,162 @@
+---
+title: 'MDX features'
+description: 'Use React components inside a post. This one shows cards, color swatches, and the highlighter.'
+date: 2026-11-07
+tags:
+  - MDX
+  - Guide
+draft: false
+---
+
+import Image from '@/components/common/Image';
+import Highlight from '@/components/common/Highlight';
+import ColorSwatch from '@/components/posts/ColorSwatch';
+import DemoCard from '@/components/posts/DemoCard';
+import blackCat from '@/assets/blog/mdx-features/black-cat.jpg';
+
+## Why MDX
+
+[MDX](https://mdxjs.com/) is Markdown that can also use React components. You write a post as usual, and wherever plain text isn't enough, you drop in a component such as a card, a color swatch, or a highlighted phrase.
+
+Those components are written with [JSX](https://react.dev/learn/writing-markup-with-jsx), an HTML-like tag syntax such as `<DemoCard />` that stands for a piece of UI. MDX is, in short, Markdown plus JSX.
+
+Posts with a `.mdx` extension work like Markdown, with one addition: you can import React components and use them right in the text. Plain `.md` posts keep working, so you only reach for MDX when a post needs it.
+
+## Import components
+
+Put the imports right after the frontmatter, then use the components anywhere below:
+
+```ts
+import Highlight from '@/components/common/Highlight';
+import DemoCard from '@/components/posts/DemoCard';
+```
+
+## Cards
+
+`DemoCard` wraps content in a themed card. It has three variants, `flat`, `raised`, and `interactive` (the default):
+
+<div className="my-8 grid gap-8 sm:grid-cols-3">
+  <DemoCard variant="flat" className="p-5">
+    <div className="font-heading font-bold">Flat</div>
+    <div className="text-muted">Soft edges, no shadow.</div>
+  </DemoCard>
+  <DemoCard variant="raised" className="p-5">
+    <div className="font-heading font-bold">Raised</div>
+    <div className="text-muted">Hard border, solid shadow.</div>
+  </DemoCard>
+  <DemoCard className="p-5">
+    <div className="font-heading font-bold">Interactive</div>
+    <div className="text-muted">Hover over me.</div>
+  </DemoCard>
+</div>
+
+```tsx
+<DemoCard variant="raised" className="p-5">
+  <div className="font-heading font-bold">Raised</div>
+</DemoCard>
+```
+
+## Color swatches
+
+`ColorSwatch` takes a palette token and a label, so the swatches follow the current season and light or dark mode:
+
+<div className="my-8 grid grid-cols-2 gap-8 sm:grid-cols-3">
+  <ColorSwatch color="accent" label="Accent" />
+  <ColorSwatch color="pink" label="Pink" />
+  <ColorSwatch color="blue" label="Blue" />
+  <ColorSwatch color="green" label="Green" />
+  <ColorSwatch color="yellow" label="Yellow" />
+  <ColorSwatch color="red" label="Red" />
+</div>
+
+```mdx
+<ColorSwatch color="pink" label="Pink" />
+```
+
+## Inline components
+
+Components work inside a sentence, too. The `Highlight` component gives <Highlight handDrawn>the words that matter</Highlight> a highlighter-style underline. It comes in two styles: the default slanted bar, and `handDrawn`, an uneven marker stroke. Add `bold` for heavier text:
+
+{/* prettier-ignore */}
+<DemoCard variant="raised" className="space-y-2 p-5 font-heading text-xl font-bold [&_p]:m-0!">
+  <p>A <Highlight>highlighter</Highlight> makes the <Highlight>words that matter</Highlight> stand out.</p>
+  <p>A <Highlight handDrawn>marker</Highlight> stroke looks human.</p>
+  <p>A <Highlight handDrawn bold>bold</Highlight> one.</p>
+</DemoCard>
+
+```mdx
+A <Highlight>highlighter</Highlight> makes the words stand out.
+A <Highlight handDrawn>marker</Highlight> stroke looks human.
+A <Highlight handDrawn bold>bold</Highlight> one.
+```
+
+The hand-drawn style needs a line of its own for each highlight, so below 832px wide it falls back to the default bar.
+
+## Images
+
+Markdown's `![]()` syntax still works in MDX. When you want more control, use the `<Image />` component. Import it from `@/components/common/Image`, import the image file, and pass the file as `src`:
+
+```mdx
+import Image from '@/components/common/Image';
+import blackCat from '@/assets/blog/mdx-features/black-cat.jpg';
+
+<Image src={blackCat} alt="A black cat with yellow eyes sitting on a wooden bench" width={800} className="my-8" />
+```
+
+Here is the result:
+
+<Image src={blackCat} alt="A black cat with yellow eyes sitting on a wooden bench" width={800} className="my-8" />
+
+Photo by [Kristin O Karlsen](https://unsplash.com/@kristinokarlsen) on [Unsplash](https://unsplash.com/photos/a-black-cat-sitting-on-top-of-a-wooden-bench-m3CtRNfbJlI).
+
+Like Markdown images, `<Image />` resolves the Vite asset import and adds the site's base path automatically. Props such as `width`, `loading`, and `className` let you control the `<img>`. As with Markdown images, keep the file in `src/assets/` so Vite bundles it.
+
+## Define your own components
+
+You aren't limited to the components shown here. Create your own [React components](https://react.dev/learn/your-first-component) and import them into a post the same way. We recommend keeping them in `src/components/posts/`, next to `DemoCard` and `ColorSwatch`.
+
+Here's a small one, `Callout`. As a React component, it takes `title` and `children` props and renders whatever you put inside it:
+
+```tsx
+import type { ReactNode } from 'react';
+
+interface CalloutProps {
+  title: string;
+  children: ReactNode;
+}
+
+export default function Callout({ title, children }: CalloutProps) {
+  return (
+    <aside className="my-8 border-2 border-l-8 border-ink border-l-accent bg-bg-elevated p-5">
+      <div className="font-heading font-bold">{title}</div>
+      <div className="text-muted">{children}</div>
+    </aside>
+  );
+}
+```
+
+Save it as `src/components/posts/Callout.tsx` and import it like the others.
+
+For something small that only one post needs, you can skip the extra file and define the component right in the post with `export`. This post does exactly that:
+
+```mdx
+export const Callout = ({ title, children }) => (
+  <aside className="my-8 border-2 border-l-8 border-ink border-l-accent bg-bg-elevated p-5">
+    <div className="font-heading font-bold">{title}</div>
+    <div className="text-muted">{children}</div>
+  </aside>
+);
+
+<Callout title="Heads up">Callouts are a good place for tips and warnings.</Callout>
+```
+
+export const Callout = ({ title, children }) => (
+  <aside className="my-8 border-2 border-l-8 border-ink border-l-accent bg-bg-elevated p-5">
+    <div className="font-heading font-bold">{title}</div>
+    <div className="text-muted">{children}</div>
+  </aside>
+);
+
+<Callout title="Heads up">Callouts are a good place for tips and warnings.</Callout>
+
+An inline component only exists in the post that defines it, so anything you want to reuse belongs in its own `.tsx` file.

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Asheel Mohammad — Cyber Security &amp; Frontend Portfolio</title>
+    <meta
+      name="description"
+      content="Portfolio of Asheel Mohammad — B.Tech Computer Science (Cyber Security) student exploring ethical hacking, Kali Linux, Burp Suite, Python, SQL, and frontend development."
+    />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <!-- Google Search Console verification token placeholder -->
+    <meta name="google-site-verification" content="GSC_VERIFICATION_TOKEN_HERE" />
+    <link rel="canonical" href="https://asheel.vercel.app/" />
+    <meta name="theme-color" content="#f0eee9" />
+    <link rel="preload" href="%BASE_URL%assets/inter.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="%BASE_URL%assets/space-grotesk.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="%BASE_URL%assets/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="%BASE_URL%favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="%BASE_URL%favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="%BASE_URL%apple-touch-icon.png" />
+    <link rel="shortcut icon" href="%BASE_URL%favicon.ico" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Asheel Mohammad" />
+    <meta property="og:title" content="Asheel Mohammad — Cyber Security &amp; Frontend Portfolio" />
+    <meta
+      property="og:description"
+      content="Portfolio of Asheel Mohammad — B.Tech Computer Science (Cyber Security) student exploring ethical hacking, Kali Linux, Burp Suite, Python, SQL, and frontend development."
+    />
+    <meta property="og:url" content="https://asheel.vercel.app/" />
+    <meta property="og:image" content="%BASE_URL%assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Asheel Mohammad — Cyber Security &amp; Frontend Portfolio" />
+    <meta
+      name="twitter:description"
+      content="Portfolio of Asheel Mohammad — B.Tech Computer Science (Cyber Security) student exploring ethical hacking, Kali Linux, Burp Suite, Python, SQL, and frontend development."
+    />
+    <meta name="twitter:image" content="%BASE_URL%assets/og.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://asheel.vercel.app/#website",
+            "url": "https://asheel.vercel.app/",
+            "name": "Asheel Mohammad Portfolio",
+            "description": "Portfolio of Asheel Mohammad — B.Tech Computer Science (Cyber Security) student exploring ethical hacking, Kali Linux, Burp Suite, Python, SQL, and frontend development.",
+            "inLanguage": "en"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://asheel.vercel.app/#person",
+            "name": "Asheel Mohammad",
+            "jobTitle": "B.Tech CS (Cyber Security)",
+            "url": "https://asheel.vercel.app/",
+            "sameAs": ["https://github.com/MohammadAsheel", "https://www.linkedin.com/in/asheel-mohammad-a99034327/"],
+            "knowsAbout": [
+              "Cybersecurity",
+              "Ethical Hacking",
+              "Penetration Testing",
+              "Kali Linux",
+              "Burp Suite",
+              "Network Security",
+              "Python",
+              "SQL",
+              "Frontend Development",
+              "React"
+            ]
+          }
+        ]
+      }
+    </script>
+    <script>
+      (function () {
+        var modeKey = 'site-mode';
+        var legacyKey = 'site-palette';
+        var themeKey = 'site-theme';
+        var validThemes = ['auto', 'neon', 'autumn', 'winter', 'spring', 'summer'];
+        var seasons = {
+          autumn: { start: 922, end: 1221 },
+          winter: { start: 1222, end: 319 },
+          spring: { start: 320, end: 620 },
+          summer: { start: 621, end: 921 },
+        };
+        var legacy = localStorage.getItem(legacyKey);
+        if (legacy !== null) {
+          localStorage.removeItem(legacyKey);
+          var legacyMode = legacy.split('-').pop() || '';
+          if ((legacyMode === 'light' || legacyMode === 'dark') && localStorage.getItem(modeKey) === null) {
+            localStorage.setItem(modeKey, legacyMode);
+          }
+        }
+        var mode = localStorage.getItem(modeKey);
+        if (mode !== 'light' && mode !== 'dark') {
+          if (mode !== null) localStorage.removeItem(modeKey);
+          mode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        var storedTheme = localStorage.getItem(themeKey);
+        var theme = validThemes.indexOf(storedTheme) !== -1 ? storedTheme : 'auto';
+        if (storedTheme !== null && theme === 'auto' && storedTheme !== 'auto') {
+          localStorage.removeItem(themeKey);
+        }
+        var family = theme;
+        if (family === 'auto') {
+          var today = new Date();
+          var monthDay = (today.getMonth() + 1) * 100 + today.getDate();
+          family = 'neon';
+          var names = Object.keys(seasons);
+          for (var i = 0; i < names.length; i++) {
+            var s = seasons[names[i]];
+            var inSeason =
+              s.start > s.end ? monthDay >= s.start || monthDay <= s.end : monthDay >= s.start && monthDay <= s.end;
+            if (inSeason) {
+              family = names[i];
+              break;
+            }
+          }
+        }
+        document.documentElement.setAttribute('data-palette', family + '-' + mode);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

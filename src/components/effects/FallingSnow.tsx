@@ -1,0 +1,18 @@
+import FallingParticles from './FallingParticles';
+import { FLAKE_SHAPES } from '@/lib/particleShapes';
+
+export default function FallingSnow() {
+  return (
+    <FallingParticles
+      family="winter"
+      shapes={FLAKE_SHAPES}
+      count={24}
+      size={{ min: 12, spread: 12 }}
+      duration={{ min: 14, spread: 12 }}
+      drift={{ min: 10, spread: 30 }}
+      delaySpread={24}
+      peakOpacity={0.7}
+      stroke
+    />
+  );
+}
